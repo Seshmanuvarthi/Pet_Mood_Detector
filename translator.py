@@ -1,9 +1,17 @@
 import google.generativeai as genai
 import time
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
+load_dotenv()
 
 # Setup your API Key
 # Get one here: https://aistudio.google.com/app/apikey
-genai.configure(api_key="AIzaSyAJ-sfcfnvm0h0ZFufmSSG0z3B_vEwE9pA")
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    raise ValueError("GEMINI_API_KEY not found in environment variables. Please set it in your .env file.")
+genai.configure(api_key=api_key)
 
 def load_pet_rules():
     with open("pet_rules.txt", "r") as f:
